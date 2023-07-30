@@ -82,3 +82,45 @@ navBar.addEventListener('mouseover',handleHover.bind(0.5));
 navBar.addEventListener('mouseout',handleHover.bind(1));
 
 
+// Implementing stick nav bar 
+
+let navHeight = navBar.getBoundingClientRect().height; 
+
+const obsCallback = (entries) => {
+    const [entry] = entries;
+    if(!entry.isIntersecting)
+      navBar.classList.add('sticky')
+    else 
+      navBar.classList.remove('sticky')
+}
+
+const headerElement = document.querySelector('.header');
+const headerObserver =  new IntersectionObserver(obsCallback,{
+  root : null,
+  threshold : 0,
+  rootMargin : `-${navHeight}px`
+});
+headerObserver.observe(headerElement);
+
+
+// Implementing revealing section on page
+let allSections = document.querySelectorAll('.section');
+
+const revealSection = (entries,observer) => {
+  const[entry] = entries;
+  if(!entry.isIntersecting) return;
+  entry.target.classList.remove('section--hidden');
+  observer.unobserve(entry.target);
+}
+
+const revealObserver = new IntersectionObserver(revealSection,{
+  root:null,
+  threshold:0.15
+});
+
+allSections.forEach(each => {
+   revealObserver.observe(each);
+   each.classList.add('section--hidden');
+})
+
+
