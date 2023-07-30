@@ -11,6 +11,7 @@ const navLinks = document.querySelector('.nav__links');
 const operationButtons = document.querySelector('.operations__tab-container');
 const tabs = document.querySelectorAll('.operations__tab');
 const infoBox = document.querySelectorAll('.operations__content');
+const navBar = document.querySelector('.nav');
 
 
 const openModal = function () {
@@ -62,3 +63,22 @@ operationButtons.addEventListener('click',(e) => {
    document.querySelector(`.operations__content--${activateTab}`)
    .classList.add('operations__content--active');
 });
+
+
+// implementing nav bar hovering effect
+function handleHover (e){
+   if(e.target.classList.contains('nav__link')){
+     let imgLogo = document.getElementById('logo');
+     document.querySelectorAll('.nav__link').forEach(each => {
+         if(each !== e.target)
+            each.style.opacity = this;
+     });
+     imgLogo.style.opacity = this;
+   }
+}
+
+navBar.addEventListener('mouseover',handleHover.bind(0.5));
+
+navBar.addEventListener('mouseout',handleHover.bind(1));
+
+
