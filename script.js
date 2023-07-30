@@ -124,3 +124,23 @@ allSections.forEach(each => {
 })
 
 
+// Implementing lazy-loading of images
+
+let allImages = document.querySelectorAll('img[data-src]');
+
+const imageLoading = (entries,observer) => {
+    const [entry] = entries;
+     
+    if(!entry.isIntersecting) return;
+
+    entry.target.src = entry.target.dataset.src;
+    entry.target.addEventListener('load',(e) =>  e.target.classList.remove('lazy-img'))
+    observer.unobserve(entry.target);
+}
+
+let imageObserver = new IntersectionObserver(imageLoading,{
+  root : null,
+  threshold:0
+});
+allImages.forEach(each => imageObserver.observe(each));
+
